@@ -22,7 +22,7 @@ public class LionTest {
     @Test
     public void exceptionTest() {
         try {
-            Lion lion = new Lion("Гермафродит");
+            Lion lion = new Lion("Гермафродит", felineMock);
         } catch (Exception exception) {
             String textException = "Используйте допустимые значения пола животного - самец или самка";
             Assert.assertEquals(textException, exception.getMessage());
@@ -30,8 +30,8 @@ public class LionTest {
     }
 
     @Test
-    public void getKittensTest() {
-        Lion lion = new Lion(felineMock);
+    public void getKittensTest() throws Exception {
+        Lion lion = new Lion("Самка", felineMock);
         Mockito.when(felineMock.getKittens()).thenReturn(1);
         int actualKittensCount = lion.getKittens();
         int expectedKittensCount = 1;
@@ -39,8 +39,8 @@ public class LionTest {
     }
 
     @Test
-    public void doesHaveManeTest() {
-        Lion lion = new Lion(felineMock);
+    public void doesHaveManeTest() throws Exception {
+        Lion lion = new Lion("Самка", felineMock);
         boolean expectedHaveMane = false;
         boolean actualHaveMane = lion.doesHaveMane();
         assertEquals(actualHaveMane, expectedHaveMane);
@@ -48,7 +48,7 @@ public class LionTest {
 
     @Test
     public void getFoodTest() throws Exception {
-        Lion lion = new Lion(felineMock);
+        Lion lion = new Lion("Самка", felineMock);
         List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
         Mockito.when(felineMock.getFood("Хищник")).thenReturn(List.of("Животные", "Птицы", "Рыба"));
         List<String> actualFood = lion.getFood();
